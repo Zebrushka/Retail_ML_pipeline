@@ -1,0 +1,3 @@
+torch
+efficientnet_pytorch
+torchvision

@@ -1,0 +1,17 @@
+{
+	"0": "chocopie", 
+	"1": "cocacola", 
+	"2": "cocacola_half",
+	"3": "cuantaro",
+	"4": "grecha",
+	"5": "hennessy",
+	"6": "icecream",
+	"7": "juice",
+	"8": "moonshine",
+	"9": "pepsi",
+	"10": "pepsi_half",
+	"11": "puree",
+	"12": "vodka",
+	"13": "vodka_baikal",
+	"14": "yogurt"
+}

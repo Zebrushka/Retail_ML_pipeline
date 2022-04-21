@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 8090
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8090"]
+CMD ["python", "main.py"]

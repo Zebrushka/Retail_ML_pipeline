@@ -2,7 +2,6 @@ import uvicorn
 from fastapi import File
 from fastapi import FastAPI
 from fastapi import UploadFile
-import numpy as np
 from PIL import Image
 
 from model import inference

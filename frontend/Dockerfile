@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install psutil
+RUN apt install python3-psutil
 RUN pip install -r requirements.txt
 
 

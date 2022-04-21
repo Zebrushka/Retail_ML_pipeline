@@ -2,13 +2,13 @@
 import torch
 from torchvision import transforms
 import json
-import PIL
+from PIL import Image
 
 
 def predict(PATH):
 
     device = torch.device('cpu')
-    model = model = torch.load('/model/efficientnet-b0.pth', map_location=device)
+    model = torch.load('/model/efficientnet-b0.pth', map_location=device)
 
     # Preprocess image
     tfms = transforms.Compose([transforms.Resize(224), transforms.ToTensor(),
@@ -28,6 +28,7 @@ def predict(PATH):
     # for idx in torch.topk(outputs, k=5).indices.squeeze(0).tolist():
     #     prob = torch.softmax(outputs, dim=1)[0, idx].item()
     #     print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=prob*100))
-    prob = torch.softmax(outputs, dim=1)[0, idx].item()
+    probability = torch.softmax(outputs, dim=1)[0, 1].item()
+    label = labels_map[1]
 
     return label, probability

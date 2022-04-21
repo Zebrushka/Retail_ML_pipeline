@@ -1,6 +1,6 @@
 import requests
 import streamlit as st
-from PIL import Image
+import base64
 
 # https://discuss.streamlit.io/t/version-0-64-0-deprecation-warning-for-st-file-uploader-decoding/4465
 st.set_option("deprecation.showfileUploaderEncoding", False)
@@ -17,7 +17,9 @@ if st.button("Get label"):
         files = {"file": image.getvalue()}
         res = requests.post(f"http://backend:8090/probability", files=files)
         probability = res.json()
-        image = Image.open(probability.get("name"))
+
+        with open("image.png", "wb") as fh:
+            image = fh.write(base64.decodebytes(probability.get("name")))
         label = probability.get("label")
         st.image(image, width=500)
         st.write(label)

@@ -5,8 +5,7 @@ FROM python:3.10.1-slim
 WORKDIR /app
 
 COPY requirements.txt .
-RUN python -m pip install --upgrade pip
-RUN apt-get install gcc python3-dev
+
 RUN pip install psutil
 RUN pip install -r requirements.txt
 

@@ -6,7 +6,7 @@ from PIL import Image
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
 # defines an h1 header
-st.title("Style transfer web app")
+st.title("Retail ML web app")
 
 # displays a file uploader widget
 image = st.file_uploader("Choose an image")

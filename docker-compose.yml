@@ -14,4 +14,4 @@ services:
     ports:
       - 8090:8090
     volumes:
-      - ./storage:/storage
+      - ./backend/model:/model

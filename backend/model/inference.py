@@ -6,7 +6,7 @@ from PIL import Image
 
 
 def predict(image):
-    path_to_model = '/home/pi/Retail_ML_pipeline/backend/model/efficientnet-b0.pth'
+    path_to_model = 'model/efficientnet-b0.pth'
     device = torch.device('cpu')
     model = torch.load(path_to_model, map_location=device)
 
@@ -17,7 +17,7 @@ def predict(image):
     img = tfms(image).unsqueeze(0)
 
     # Load class names
-    labels_map = json.load(open('/home/pi/Retail_ML_pipeline/backend/model/labels.txt'))
+    labels_map = json.load(open('model/labels.txt'))
     labels_map = [labels_map[str(i)] for i in range(15)]
 
     # Classify

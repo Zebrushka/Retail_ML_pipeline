@@ -21,6 +21,3 @@ if st.button("Get label"):
         probability = resolve.get("probability")
         label = resolve.get("label")
         st.write(label, probability)
-
-if st.button("Remove image"):
-    pass

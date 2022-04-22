@@ -6,5 +6,6 @@ A project on machine learning courses. Pipeline is used internally: YOLO for ite
 
 Demo: http://62.148.235.120:8501/
 
-Build: docker-compose up -d --build
-Run: docker-compose up -d
+Build: `docker-compose up -d --build`
+
+Run: `docker-compose up -d`

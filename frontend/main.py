@@ -15,7 +15,7 @@ image = st.file_uploader("Choose an image")
 if st.button("Get label"):
     if image is not None:
         files = {"file": image.getvalue()}
-        res = requests.post("http://0.0.0.0:8090/probability", files=files)
+        res = requests.post("http://127.0.0.1:8090/probability", files=files)
         probability = res.json()
         image = Image.open(probability.get("name"))
         label = probability.get("label")

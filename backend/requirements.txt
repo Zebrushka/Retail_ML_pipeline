@@ -14,3 +14,4 @@ requests
 scipy
 torch
 torchvision
+tqdm

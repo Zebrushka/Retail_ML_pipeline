@@ -8,3 +8,9 @@ uvicorn
 opencv-python
 python-multipart
 pandas
+numpy
+PyYAML
+requests
+scipy
+torch
+torchvision

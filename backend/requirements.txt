@@ -7,3 +7,4 @@ Pillow
 uvicorn
 opencv-python
 python-multipart
+pandas

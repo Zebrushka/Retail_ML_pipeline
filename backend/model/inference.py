@@ -4,7 +4,6 @@ from torchvision import transforms
 import json
 import cv2
 from PIL import Image
-import random
 import numpy as np
 
 
@@ -52,12 +51,7 @@ def crop(input_image):
     print(x1, y1, x2, y2)
 
     crop_image = image[y1:y2, x1:x2]
-    # item = Image.fromarray(crop_image)
-    # print(item)
-    # item = np.asarray(crop_image)
-    # filename = '/crops/' + str(random.randint(100000, 200000)) +'.jpg'
-    # item = cv2.imwrite(filename, crop_image)
-    # print(item)
+
     return crop_image, detections
 
 

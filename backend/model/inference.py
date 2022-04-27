@@ -6,7 +6,6 @@ import cv2
 from PIL import Image
 import numpy as np
 
-
 # path to model
 path_to_model_clf = 'model/efficientnet-b0.pth'
 path_to_model_det = 'model/yolo_detector.pt'
@@ -31,26 +30,38 @@ def crop(input_image):
     def return_bbox(input_image):
         # return bbox and label
         detections = model_det(input_image[..., ::-1])
+        detections.save()
+        print(detections)
         labels, result_bbox = detections.xyxyn[0][:, -1].numpy(), detections.xyxyn[0][:, :-2].numpy()
-        index_label = list(labels).index(2)
+        index_label = list(labels).index(0)
+        print(index_label, result_bbox)
         x1 = result_bbox[index_label][0]
         y1 = result_bbox[index_label][1]
         x2 = result_bbox[index_label][2]
         y2 = result_bbox[index_label][3]
+
         box_points = [x1, y1, x2, y2]
 
         return box_points, detections
 
     image = cv2.imread(input_image)
+    dim = (384, 640)
+    image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
+    height, width, channels = image.shape
+    print('resize image ', height, width, channels)
     box_points, detections = return_bbox(image)
-    print(box_points)
-    x1 = int(float(box_points[0]) * 1000)
-    y1 = int(float(box_points[1]) * 1000)
-    x2 = int(float(box_points[2]) * 1000)
-    y2 = int(float(box_points[3]) * 1000)
-    print(x1, y1, x2, y2)
+    print('box point ', box_points)
+
+    x1 = int(float(box_points[0] * 384))
+    y1 = int(float(box_points[1] * 640))
+    x2 = int(float(box_points[2] * 384))
+    y2 = int(float(box_points[3] * 640))
+
+    print('box point adaptation', x1, y1, x2, y2)
 
     crop_image = image[y1:y2, x1:x2]
+    height, width, channels = crop_image.shape
+    print('image size after crop', height, width, channels)
 
     return crop_image, detections
 
@@ -58,6 +69,7 @@ def crop(input_image):
 def predict(input_image):
     item, detections = crop(input_image)
     # detections.save()
+    print(item)
     image_for_pred = Image.fromarray(item)
     # Preprocess image for clf
     tfms = transforms.Compose([transforms.Resize(224), transforms.ToTensor(),

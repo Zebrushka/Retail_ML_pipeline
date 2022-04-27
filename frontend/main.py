@@ -21,7 +21,7 @@ if st.button("Get label"):
         resolve = res.json()
         label = resolve.get("label")
         probability = resolve.get("probability")
-        results = resolve.get("result")
-        st.image(results, width=300)
+        results = Image.fromarray(resolve.get("result"))
+
         st.write(label, probability)
-        st.image(image, width=300)
+        st.image(results, width=300)

@@ -79,4 +79,4 @@ def predict(input_image):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    return label, probability,
+    return label, probability, detections

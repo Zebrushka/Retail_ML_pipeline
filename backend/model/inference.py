@@ -57,7 +57,7 @@ def crop(input_image):
 
 def predict(input_image):
     item, detections = crop(input_image)
-    print(detections.type())
+    # detections.save()
     image_for_pred = Image.fromarray(item)
     # Preprocess image for clf
     tfms = transforms.Compose([transforms.Resize(224), transforms.ToTensor(),
@@ -79,4 +79,4 @@ def predict(input_image):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    return label, probability, detections
+    return label, probability #, detections

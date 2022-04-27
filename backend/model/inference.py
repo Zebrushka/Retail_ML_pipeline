@@ -30,7 +30,6 @@ def crop(input_image):
     def return_bbox(input_image):
         # return bbox and label
         detections = model_det(input_image[..., ::-1])
-        detections.save()
         print(detections)
         labels, result_bbox = detections.xyxyn[0][:, -1].numpy(), detections.xyxyn[0][:, :-2].numpy()
         index_label = list(labels).index(0)
@@ -91,4 +90,7 @@ def predict(input_image):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    return label, probability
+    detections = np. array(detections.save())
+
+
+    return label, probability, detections

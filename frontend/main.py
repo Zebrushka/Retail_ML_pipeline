@@ -14,13 +14,14 @@ image = st.file_uploader("Choose an image")
 # displays a button
 if st.button("Get label"):
     if image is not None:
-        st.image(image, width=300)
+
         files = {"file": image.getvalue()}
         res = requests.post("http://62.148.235.120:8090/probability", files=files)
 
         resolve = res.json()
         label = resolve.get("label")
         probability = resolve.get("probability")
-        # results = resolve.get("result")
-        # st.image(results, width=300)
+        results = resolve.get("result")
+        st.image(results, width=300)
         st.write(label, probability)
+        st.image(image, width=300)

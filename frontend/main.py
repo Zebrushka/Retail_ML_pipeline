@@ -17,6 +17,7 @@ if st.button("Get label"):
         st.image(image, width=300)
         files = {"file": image.getvalue()}
         res = requests.post("http://62.148.235.120:8090/probability", files=files)
+
         resolve = res.json()
         label = resolve.get("label")
         probability = resolve.get("probability")

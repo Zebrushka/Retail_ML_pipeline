@@ -2,7 +2,8 @@ import uvicorn
 from fastapi import File
 from fastapi import FastAPI
 from fastapi import UploadFile
-from PIL import Image
+import cv2
+import uuid
 
 from model import inference
 
@@ -18,7 +19,9 @@ def read_root():
 def get_image(file: UploadFile = File(...)):
     # image = Image.open(file.file)
     label, probability, result = inference.predict(file.file)
-    return {"label": label, "probability": probability, "result": result}
+    name = f"/storage/{str(uuid.uuid4())}.jpg"
+    cv2.imwrite(name, result)
+    return {"label": label, "probability": probability, "result": name}
 
 
 if __name__ == "__main__":

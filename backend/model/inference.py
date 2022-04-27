@@ -6,6 +6,7 @@ import cv2
 from PIL import Image
 import numpy as np
 
+
 # path to model
 path_to_model_clf = 'model/efficientnet-b0.pth'
 path_to_model_det = 'model/yolo_detector.pt'
@@ -90,7 +91,7 @@ def predict(input_image):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    detections = np.asarray(detections.save())
+    detections = detections.save()
 
 
     return label, probability, detections

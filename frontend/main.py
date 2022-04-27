@@ -16,7 +16,7 @@ if st.button("Get label"):
     if image is not None:
         st.image(image, width=300)
         files = {"file": image.getvalue()}
-        res = requests.post("http://192.168.0.12:8090/probability", files=files)
+        res = requests.post("http://62.148.235.120:8090/probability", files=files)
         resolve = res.json()
         label = resolve.get("label")
         probability = resolve.get("probability")

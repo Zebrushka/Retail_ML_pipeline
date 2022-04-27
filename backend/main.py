@@ -17,7 +17,7 @@ def read_root():
 @app.post("/probability")
 def get_image(file: UploadFile = File(...)):
     # image = Image.open(file.file)
-    label, probability, image_for_pred = inference.predict(file.file)
+    label, probability = inference.predict(file.file)
     return {"label": label, "probability": probability}
 
 

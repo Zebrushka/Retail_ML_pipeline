@@ -5,6 +5,8 @@ import json
 import cv2
 from PIL import Image
 import numpy as np
+import io
+import base64
 
 
 # path to model
@@ -90,8 +92,14 @@ def predict(input_image):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    detections = detections.render()
-    print(detections)
+    detections.imgs  # array of original images (as np array) passed to model for inference
+    detections.render()  # updates results.imgs with boxes and labels
+    for img in detections.imgs:
+        buffered = io.BytesIO()
+        img_base64 = Image.fromarray(img)
+        img_base64.save(buffered, format="JPEG")
+        print(base64.b64encode(buffered.getvalue()).decode('utf-8'))  # base64 encoded image with results
+        return buffered
 
 
-    return label, probability, detections
+    return label, probability, buffered

@@ -19,13 +19,8 @@ def read_root():
 def get_image(file: UploadFile = File(...)):
     # image = Image.open(file.file)
     label, probability, result = inference.predict(file.file)
-    name = f"/storage/{str(uuid.uuid4())}.jpg"
-    isWritten = cv2.imwrite(name, result)
-    if isWritten:
-        print('Image is successfully saved as file to path: ', name)
-    else:
-        print('Image the recording was unsuccessful')
-    return {"label": label, "probability": probability, "result": name}
+
+    return {"label": label, "probability": probability, "result": result}
 
 
 if __name__ == "__main__":

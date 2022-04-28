@@ -1,6 +1,8 @@
 import requests
 import streamlit as st
 from PIL import Image
+import io
+import base64
 
 # https://discuss.streamlit.io/t/version-0-64-0-deprecation-warning-for-st-file-uploader-decoding/4465
 st.set_option("deprecation.showfileUploaderEncoding", False)
@@ -21,7 +23,8 @@ if st.button("Get label"):
         resolve = res.json()
         label = resolve.get("label")
         probability = resolve.get("probability")
-        results = Image.open(resolve.get("result"))
+        results = Image.open()
+        im = Image.open(io.BytesIO(base64.b64decode(resolve.get("result"))))
 
         st.write(label, probability)
-        st.image(results, width=300)
+        st.image(im, width=300)

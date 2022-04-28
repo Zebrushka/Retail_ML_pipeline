@@ -23,6 +23,8 @@ def get_image(file: UploadFile = File(...)):
     isWritten = cv2.imwrite(name, result)
     if isWritten:
         print('Image is successfully saved as file to path: ', name)
+    else:
+        print('Image the recording was unsuccessful')
     return {"label": label, "probability": probability, "result": name}
 
 

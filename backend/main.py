@@ -19,7 +19,7 @@ def read_root():
 def get_image(file: UploadFile = File(...)):
     # image = Image.open(file.file)
     label, probability, result = inference.predict(file.file)
-    name = f"/storage/{str(uuid.uuid4())}.jpg"
+    name = f"storage/{str(uuid.uuid4())}.jpg"
     cv2.imwrite(name, result)
     return {"label": label, "probability": probability, "result": name}
 

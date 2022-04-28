@@ -75,6 +75,7 @@ def predict(input_image):
     item, detections = crop(input_image)
 
     image_for_pred = Image.fromarray(item)
+
     # Preprocess image for clf
     tfms = transforms.Compose([transforms.Resize(224), transforms.ToTensor(),
                                transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]), ])
@@ -95,15 +96,16 @@ def predict(input_image):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    detections.imgs  # array of original images (as np array) passed to model for inference
-    detections.render()  # updates results.imgs with boxes and labels
+    # convert to b64
+    detections.imgs
+    detections.render()
     for img in detections.imgs:
         buffered = io.BytesIO()
         img_base64 = Image.fromarray(img)
         img_base64.save(buffered, format="JPEG")
 
-        imageWithBBox = base64.b64encode(buffered.getvalue()).decode('utf-8')# base64 encoded image with results
+        image_witt_BBox = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
 
 
-    return label, probability, imageWithBBox
+    return label, probability, image_witt_BBox

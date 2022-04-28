@@ -68,8 +68,7 @@ def crop(input_image):
 
 def predict(input_image):
     item, detections = crop(input_image)
-    # detections.save()
-    print(item)
+
     image_for_pred = Image.fromarray(item)
     # Preprocess image for clf
     tfms = transforms.Compose([transforms.Resize(224), transforms.ToTensor(),

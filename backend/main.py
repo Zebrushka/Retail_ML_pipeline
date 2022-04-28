@@ -20,8 +20,9 @@ def get_image(file: UploadFile = File(...)):
     # image = Image.open(file.file)
     label, probability, result = inference.predict(file.file)
     name = f"/storage/{str(uuid.uuid4())}.jpg"
-    cv2.imwrite(name, result)
-    print(name)
+    isWritten = cv2.imwrite(name, result)
+    if isWritten:
+        print('Image is successfully saved as file to path: ', name)
     return {"label": label, "probability": probability, "result": name}
 
 

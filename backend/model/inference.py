@@ -20,6 +20,9 @@ device = torch.device('cpu')
 model_clf = torch.load(path_to_model_clf, map_location=device)
 model_det = torch.hub.load('ultralytics/yolov5', 'custom', path=path_to_model_det)
 
+# Inference Settings
+model_det.conf = 0.3
+
 # eval
 model_det.eval()
 model_clf.eval()

@@ -101,7 +101,7 @@ def predict(input_image):
         buffered = io.BytesIO()
         img_base64 = Image.fromarray(img)
         img_base64.save(buffered, format="JPEG")
-        print(base64.b64encode(buffered.getvalue()).decode('utf-8'))
+
         imageWithBBox = base64.b64encode(buffered.getvalue()).decode('utf-8')# base64 encoded image with results
 
 

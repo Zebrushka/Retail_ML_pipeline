@@ -8,10 +8,10 @@ services:
     depends_on:
       - backend
     volumes:
-        - ./storage:/storage
+      - ./Retail_ML_pipeline/storage:/storage
   backend:
     build: backend
     ports:
       - 8090:8090
     volumes:
-      - ./storage:/storage
+      - ./Retail_ML_pipeline/storage:/storage

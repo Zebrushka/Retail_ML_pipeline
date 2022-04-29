@@ -9,3 +9,10 @@ Demo: http://62.148.235.120:8501/
 Build: `docker-compose up -d --build`
 
 Run: `docker-compose up -d`
+
+
+Already implemented and plans:
+- [x] YOLO for item detection, price tags and price
+- [x] EfficientNet for item classification
+- [x] Backend + frontend
+- [ ] OCR

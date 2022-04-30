@@ -19,8 +19,9 @@ def read_root():
 def get_image(file: UploadFile = File(...)):
 
     label, probability, result = inference.predict(file.file)
+    price = inference.priceRecognition(file.file, 1)
 
-    return {"label": label, "probability": probability, "result": result}
+    return {"label": label, "probability": probability, "result": result, "price": price}
 
 
 if __name__ == "__main__":

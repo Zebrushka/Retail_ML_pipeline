@@ -29,17 +29,23 @@ model_det.eval()
 model_clf.eval()
 
 
-def crop(input_image):
+def crop(input_image, label):
     """Takes in a `img` an image OpenCV object and `box_points` which is a list
     containg the upper left and lower right coordinates of the bounding box to crop out.
     For example, box_points should be [x1, y1, x2, y2]."""
 
-    def return_bbox(input_image):
-        # return bbox and label
+    def return_bbox(input_image, label):
+        """
+        return bbox and label
+        0 - for choice item
+        1 - for choice price tag
+        2 - for choice price
+        """
+
         detections = model_det(input_image[..., ::-1])
         print(detections)
-        labels, result_bbox = detections.xyxyn[0][:, -1].numpy(), detections.xyxyn[0][:, :-2].numpy()
-        index_label = list(labels).index(0)
+        labels, result_bbox = detections.xyxyn[label][:, -1].numpy(), detections.xyxyn[0][:, :-2].numpy()
+        index_label = list(labels).index(label)
         print(index_label, result_bbox)
         x1 = result_bbox[index_label][0]
         y1 = result_bbox[index_label][1]
@@ -55,7 +61,7 @@ def crop(input_image):
     image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
     height, width, channels = image.shape
     print('resize image ', height, width, channels)
-    box_points, detections = return_bbox(image)
+    box_points, detections = return_bbox(image, label)
     print('box point ', box_points)
 
     x1 = int(float(box_points[0] * 384))
@@ -72,9 +78,11 @@ def crop(input_image):
     return crop_image, detections
 
 
-def discernprice(image):
+def priceRecognition(image):
+    label = 1
+    crop_image, detections = crop(image, label)
     reader = easyocr.Reader(['ru'])
-    result = reader.readtext(image)
+    result = reader.readtext(crop_image)
 
     return result
 

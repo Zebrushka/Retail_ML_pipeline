@@ -7,6 +7,7 @@ from PIL import Image
 import numpy as np
 import io
 import base64
+import easyocr
 
 
 # path to model
@@ -69,6 +70,13 @@ def crop(input_image):
     print('image size after crop', height, width, channels)
 
     return crop_image, detections
+
+
+def discernprice(image):
+    reader = easyocr.Reader(['ru'])
+    result = reader.readtext(image)
+
+    return result
 
 
 def predict(input_image):

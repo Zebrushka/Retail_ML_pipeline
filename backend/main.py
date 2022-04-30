@@ -5,7 +5,7 @@ from fastapi import UploadFile
 import cv2
 import uuid
 
-from model import inference, discernprice
+from model import inference, priceRecognition
 
 app = FastAPI()
 

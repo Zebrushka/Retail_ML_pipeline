@@ -87,8 +87,8 @@ def priceRecognition(image):
     return result
 
 
-def predict(input_image):
-    item, detections = crop(input_image)
+def predict(input_image, label):
+    item, detections = crop(input_image, label)
 
     image_for_pred = Image.fromarray(item)
 
@@ -120,8 +120,8 @@ def predict(input_image):
         img_base64 = Image.fromarray(img)
         img_base64.save(buffered, format="JPEG")
 
-        image_witt_BBox = base64.b64encode(buffered.getvalue()).decode('utf-8')
+        image_with_BBox = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
 
 
-    return label, probability, image_witt_BBox
+    return label, probability, image_with_BBox

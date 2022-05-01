@@ -89,6 +89,7 @@ def priceRecognition(image):
 
 
 def predict(input_image, label):
+    label = 0
     item, detections = crop(input_image, label)
 
     image_for_pred = Image.fromarray(item)

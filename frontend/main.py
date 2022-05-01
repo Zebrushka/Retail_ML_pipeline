@@ -24,6 +24,7 @@ if st.button("Get label"):
         resolve = res.json()
         label = resolve.get("label")
         probability = resolve.get("probability")
+        price = resolve.get("price")
 
         im = Image.open(io.BytesIO(base64.b64decode(resolve.get("result"))))
         st.write("elapsed time : {}s".format(time.time() - t))

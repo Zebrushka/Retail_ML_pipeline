@@ -5,7 +5,6 @@ from fastapi import UploadFile
 import cv2
 import uuid
 from typing import List
-from time import d
 
 from db.session import get_db
 from db.models.item import Item

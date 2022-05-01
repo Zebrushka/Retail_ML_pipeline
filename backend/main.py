@@ -12,10 +12,18 @@ from db.session import get_db
 from db.models.item import Item
 from sqlalchemy.orm import Session
 from db.repository.item import create_new_item, list_item
+from db.base_class import Base
+from db.session import engine
 
 from model import inference
 
+def create_tables():
+	print("create_tables")
+	Base.metadata.create_all(bind=engine)
+
+
 app = FastAPI()
+create_tables()
 
 
 @app.get("/")

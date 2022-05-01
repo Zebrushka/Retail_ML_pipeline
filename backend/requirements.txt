@@ -19,5 +19,4 @@ seaborn
 uuid
 easyocr
 sqlalchemy
-dotenv
 typing

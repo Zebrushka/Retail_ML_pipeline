@@ -113,6 +113,8 @@ def predict(input_image, label):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
+    # TODO если модель предсказывает что-то с порогом ниже 0.5 возвращать класс unknow
+
     # convert to b64
     detections.imgs
     detections.render()

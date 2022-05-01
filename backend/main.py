@@ -4,6 +4,13 @@ from fastapi import FastAPI
 from fastapi import UploadFile
 import cv2
 import uuid
+from typing import List
+from time import d
+
+from db.session import get_db
+from db.models.item import Item
+from sqlalchemy.orm import Session, Depends
+from db.repository.item import create_new_item, list_item
 
 from model import inference
 
@@ -16,12 +23,21 @@ def read_root():
 
 
 @app.post("/probability")
-def get_image(file: UploadFile = File(...)):
+def get_probability(file: UploadFile = File(...)):
 
     label, probability, result = inference.predict(file.file, 0)
     price = inference.priceRecognition(file.file)
+    item = [label, probability, price, result]
+    create_new_item(item)
 
     return {"label": label, "probability": probability, "result": result, "price": price}
+
+
+@app.get("/get_history", response_model = List)
+def read_item(db:Session = Depends(get_db)):
+    item = list_item(db=db)
+    return item
+
 
 
 if __name__ == "__main__":

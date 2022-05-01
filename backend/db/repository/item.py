@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from backend.db.models.item import Item
-from backend.db.session import SessionLocal
+from db.models.item import Item
+from db.session import SessionLocal
 
 
 def create_new_item(item, db: Session):

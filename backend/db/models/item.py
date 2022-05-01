@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
 
-from backend.db.base_class import Base
+from db.base_class import Base
 
 # TODO сделать сохранение даты, фото, метки, вероятности, цены
 

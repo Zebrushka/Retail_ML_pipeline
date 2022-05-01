@@ -22,7 +22,7 @@ model_clf = torch.load(path_to_model_clf, map_location=device)
 model_det = torch.hub.load('ultralytics/yolov5', 'custom', path=path_to_model_det)
 
 # Inference Settings
-model_det.conf = 0.3
+model_det.conf = 0.4
 model_clf.conf = 0.6
 
 # eval
@@ -39,8 +39,8 @@ def crop(input_image, label):
         """
         return bbox and label
         0 - for choice item
-        1 - for choice price tag
-        2 - for choice price
+        1 - for choice price
+        2 - for choice price tag
         """
 
         detections = model_det(input_image[..., ::-1])
@@ -79,16 +79,20 @@ def crop(input_image, label):
     return crop_image, detections
 
 
-def priceRecognition(image):
+def pricerecognition(image):
     label = 1
     crop_image, detections = crop(image, label)
     reader = easyocr.Reader(['ru'])
-    result = reader.readtext(crop_image)
+    price = reader.readtext(crop_image)
 
-    return result
+    return price
 
 
 def predict(input_image, label):
+
+    price = pricerecognition(input_image)
+    print(price, type(price))
+
     label = 0
     item, detections = crop(input_image, label)
 
@@ -125,8 +129,5 @@ def predict(input_image, label):
         img_base64.save(buffered, format="JPEG")
 
         image_with_BBox = base64.b64encode(buffered.getvalue()).decode('utf-8')
-
-    price = priceRecognition(input_image)
-    print(price, type(price))
 
     return label, probability, image_with_BBox, price

@@ -126,5 +126,6 @@ def predict(input_image, label):
         image_with_BBox = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
     price = priceRecognition(input_image)
+    print(price, type(price))
 
     return label, probability, image_with_BBox, price

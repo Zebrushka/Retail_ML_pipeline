@@ -2,13 +2,15 @@ import uvicorn
 from fastapi import File
 from fastapi import FastAPI
 from fastapi import UploadFile
+from fastapi import Depends
+
 import cv2
 import uuid
 from typing import List
 
 from db.session import get_db
 from db.models.item import Item
-from sqlalchemy.orm import Session, Depends
+from sqlalchemy.orm import Session
 from db.repository.item import create_new_item, list_item
 
 from model import inference

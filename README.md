@@ -17,4 +17,4 @@ Already implemented and plans:
 - [x] Backend + frontend
 - [ ] For unknown products display the label unknown
 - [ ] OCR
-- [ ] Save history to database (Postgres)
+- [ ] Save history to database (sqlite)

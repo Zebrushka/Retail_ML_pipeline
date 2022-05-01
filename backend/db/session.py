@@ -11,7 +11,7 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def get_db() -> Generator:   #new
+def get_db() -> Generator:
     try:
         db = SessionLocal()
         yield db

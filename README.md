@@ -16,3 +16,4 @@ Already implemented and plans:
 - [x] EfficientNet for item classification
 - [x] Backend + frontend
 - [ ] OCR
+- [ ] Save history to database (Postgres)

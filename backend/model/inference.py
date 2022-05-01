@@ -23,6 +23,7 @@ model_det = torch.hub.load('ultralytics/yolov5', 'custom', path=path_to_model_de
 
 # Inference Settings
 model_det.conf = 0.3
+model_clf.conf = 0.6
 
 # eval
 model_det.eval()

@@ -15,6 +15,6 @@ Already implemented and plans:
 - [x] YOLO for item detection, price tags and price
 - [x] EfficientNet for item classification
 - [x] Backend + frontend
-- [ ] For unknown products display the label unknown
+- [x] For unknown products display the label unknown
 - [ ] OCR
-- [ ] Save history to database (sqlite)
+- [x] Save history to database (sqlite)

@@ -22,8 +22,8 @@ model_clf = torch.load(path_to_model_clf, map_location=device)
 model_det = torch.hub.load('ultralytics/yolov5', 'custom', path=path_to_model_det)
 
 # Inference Settings
-model_det.conf = 0.4
-model_clf.conf = 0.6
+# model_det.conf = 0.3
+# model_clf.conf = 0.6
 
 # eval
 model_det.eval()
@@ -115,7 +115,8 @@ def predict(input_image, label):
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
     # TODO если модель предсказывает что-то с порогом ниже 0.5 возвращать класс unknow
-
+    if probability < 0.7:
+        label = 'unknow'
 
     # convert to b64
     detections.imgs

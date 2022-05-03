@@ -1,3 +1,5 @@
+import datetime
+
 import uvicorn
 from fastapi import File
 from fastapi import FastAPI
@@ -14,6 +16,7 @@ from sqlalchemy.orm import Session
 from db.repository.item import create_new_item, list_item
 from db.base_class import Base
 from db.session import engine
+from db.session import get_db
 
 from model import inference
 
@@ -32,14 +35,18 @@ def read_root():
 
 
 @app.post("/probability")
-def get_probability(file: UploadFile = File(...)):
+def get_probability(file: UploadFile = File(...), db: Session = Depends(get_db)):
 
     label, probability, result = inference.predict(file.file, 0)
-    price = inference.priceRecognition(file.file)
-    item = [label, probability, price, result]
-    create_new_item(item)
 
-    return {"label": label, "probability": probability, "result": result, "price": price}
+    #TODO сделать распонование цены
+    # price = inference.pricerecognition(file.file)
+    # print(price)
+
+    item = {'label': label, "probability": probability, "image": result}
+    create_new_item(item = item, db=db)
+
+    return {"label": label, "probability": probability, "result": result}
 
 
 @app.get("/get_history", response_model = List)

@@ -45,7 +45,7 @@ def crop(input_image, label):
 
         detections = model_det(input_image[..., ::-1])
         print(detections)
-        labels, result_bbox = detections.xyxyn[label][:, -1].numpy(), detections.xyxyn[0][:, :-2].numpy()
+        labels, result_bbox = detections.xyxyn[label][:, -1].numpy(), detections.xyxyn[label][:, :-2].numpy()
         index_label = list(labels).index(label)
         print(index_label, result_bbox)
         x1 = result_bbox[index_label][0]
@@ -80,7 +80,7 @@ def crop(input_image, label):
 
 
 def pricerecognition(image):
-    label = 1
+    label = 2
     crop_image, detections = crop(image, label)
     reader = easyocr.Reader(['ru'])
     price = reader.readtext(crop_image)
@@ -90,10 +90,6 @@ def pricerecognition(image):
 
 def predict(input_image, label):
 
-    price = pricerecognition(input_image)
-    print(price, type(price))
-
-    label = 0
     item, detections = crop(input_image, label)
 
     image_for_pred = Image.fromarray(item)
@@ -120,6 +116,7 @@ def predict(input_image, label):
 
     # TODO если модель предсказывает что-то с порогом ниже 0.5 возвращать класс unknow
 
+
     # convert to b64
     detections.imgs
     detections.render()
@@ -130,4 +127,4 @@ def predict(input_image, label):
 
         image_with_BBox = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-    return label, probability, image_with_BBox, price
+    return label, probability, image_with_BBox

@@ -30,3 +30,15 @@ if st.button("Get label"):
         st.write("elapsed time : {}s".format(time.time() - t))
         st.write(label, probability)
         st.image(im, width=300)
+
+
+#TODO сделать раскрывающийся список, при нажатии на него - подгружать историю всех запросов
+
+if st.button("View history"):
+
+    history = requests.get("http://62.148.235.120:8090/get_history")
+    history.json()
+    print(history)
+    container = st.container()
+
+

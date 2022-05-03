@@ -7,7 +7,7 @@ from datetime import date, datetime
 class ItemBase(BaseModel):
     item_label: Optional[str] = "vodka"
     item_probability: Optional[str] = "0.89"
-    #item_price: Optional[str] = None
+    item_price: Optional[str] = None
     item_image: Optional[str] = None
     #date_query: Optional[date] = datetime.now().date()
 
@@ -16,7 +16,7 @@ class ItemBase(BaseModel):
 class ItemCreate(ItemBase):
     item_label: str
     item_probability: Optional[str]
-    #item_price: Optional[str]
+    item_price: Optional[str]
     item_image: Optional[str]
     #date_query: Optional[date]
 

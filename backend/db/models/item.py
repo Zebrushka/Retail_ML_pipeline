@@ -9,6 +9,6 @@ class Item(Base):
     id = Column(Integer, primary_key = True, index=True)
     label = Column(String, nullable=False)
     probability = Column(String)
-    #price = Column(String, nullable = False)
+    price = Column(String, nullable = False)
     image = Column(String, nullable=False)
     #date_query = Column(Date)

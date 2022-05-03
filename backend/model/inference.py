@@ -42,10 +42,11 @@ def crop(input_image, label):
         1 - for choice price
         2 - for choice price tag
         """
-
+        label = label
         detections = model_det(input_image[..., ::-1])
-        print(detections)
-        labels, result_bbox = detections.xyxyn[label][:, -1].numpy(), detections.xyxyn[label][:, :-2].numpy()
+        print("detections: ", detections)
+        labels, result_bbox = detections.xyxyn[0][:, -1].numpy(), detections.xyxyn[0][:, :-2].numpy()
+        print("labels", labels)
         index_label = list(labels).index(label)
         print(index_label, result_bbox)
         x1 = result_bbox[index_label][0]
@@ -80,10 +81,12 @@ def crop(input_image, label):
 
 
 def pricerecognition(image):
-    label = 2
+    label = 1
     crop_image, detections = crop(image, label)
-    reader = easyocr.Reader(['ru'])
-    price = reader.readtext(crop_image)
+    print(type(crop_image))
+    crop_image = np.asarray(crop_image)
+    reader = easyocr.Reader(['ru'], gpu=False)
+    price = reader.readtext(crop_image, detail = 0)
 
     return price
 
@@ -118,6 +121,7 @@ def predict(input_image, label):
     if probability < 0.7:
         label = 'unknow'
 
+
     # convert to b64
     detections.imgs
     detections.render()
@@ -127,5 +131,8 @@ def predict(input_image, label):
         img_base64.save(buffered, format="JPEG")
 
         image_with_BBox = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+
+
 
     return label, probability, image_with_BBox

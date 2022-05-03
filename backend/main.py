@@ -37,22 +37,25 @@ def read_root():
 @app.post("/probability")
 def get_probability(file: UploadFile = File(...), db: Session = Depends(get_db)):
 
+    price = inference.pricerecognition(file.file)
     label, probability, result = inference.predict(file.file, 0)
-
-    #TODO сделать распонование цены
-    # price = inference.pricerecognition(file.file)
-    # print(price)
-
-    item = {'label': label, "probability": probability, "image": result}
+    item = {'label': label, "probability": probability, "price": price, "image": result}
     create_new_item(item = item, db=db)
 
-    return {"label": label, "probability": probability, "result": result}
+    return {"label": label, "probability": probability, "result": result, "price": price}
 
 
 @app.get("/get_history", response_model = List)
 def read_item(db:Session = Depends(get_db)):
     item = list_item(db=db)
     return item
+
+
+# @app.post("/get_price")
+# def get_price(file: UploadFile = File(...)):
+#
+#
+#     return price
 
 
 

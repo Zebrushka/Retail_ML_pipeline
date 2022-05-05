@@ -49,7 +49,7 @@ def read_item(db:Session = Depends(get_db)):
     item = list_item(db=db)
     return item
 
-@app.post("/get_price", response_model = List)
+@app.post("/get_price")
 def read_item(file: UploadFile = File(...)):
     price = inference.pricerecognition(file.file)
     return {"price" : price}

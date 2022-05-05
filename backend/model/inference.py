@@ -10,7 +10,6 @@ import base64
 # import easyocr
 import uuid
 import os
-import pytesseract
 import easyocr
 
 

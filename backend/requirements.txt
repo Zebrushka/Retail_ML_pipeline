@@ -12,8 +12,6 @@ numpy
 PyYAML
 requests
 scipy
-torch
-torchvision
 tqdm
 seaborn
 uuid

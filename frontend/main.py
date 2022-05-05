@@ -38,7 +38,7 @@ if st.button("View history"):
 
     history = requests.get("http://62.148.235.120:8090/get_history")
     history.json()
-    print(history)
+    st.write(history[0]['image'])
     container = st.container()
 
 

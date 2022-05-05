@@ -51,13 +51,6 @@ def read_item(db:Session = Depends(get_db)):
     return item
 
 
-# @app.post("/get_price")
-# def get_price(file: UploadFile = File(...)):
-#
-#
-#     return price
-
-
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8090)

@@ -17,7 +17,7 @@ import easyocr
 # path to model
 path_to_model_clf = 'model/efficientnet-b0.pth'
 path_to_model_det = 'model/yolo_detector.pt'
-path_to_model_ocr = 'model/english_g2.pth'
+
 
 # inference on CPU
 device = torch.device('cpu')
@@ -26,17 +26,11 @@ device = torch.device('cpu')
 model_clf = torch.load(path_to_model_clf, map_location=device)
 model_det = torch.hub.load('ultralytics/yolov5', 'custom', path=path_to_model_det)
 
-model_ocr = torch.load(path_to_model_ocr, map_location=device)
-model_ocr.load_state_dict(torch.load(path_to_model_ocr, map_location=device))
-
-# Inference Settings
-# model_det.conf = 0.3
-# model_clf.conf = 0.6
 
 # eval
 model_det.eval()
 model_clf.eval()
-model_ocr.eval()
+
 
 
 def crop(input_image, label):

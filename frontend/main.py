@@ -25,15 +25,16 @@ if st.button("Get label"):
         label = resolve.get("label")
         probability = resolve.get("probability")
         st.write(label, probability)
-        price_res = requests.post("http://62.148.235.120:8090/get_price", files=files)
-        price_resolve = price_res.json()
-        price = resolve.get("price")
 
         result_image_byts = resolve.get("result")
 
         im = Image.open(io.BytesIO(base64.b64decode(result_image_byts)))
 
         st.image(im, width=300)
+
+        price_res = requests.post("http://62.148.235.120:8090/get_price", files=files)
+        price_resolve = price_res.json()
+        price = resolve.get("price")
 
         requests.post("http://62.148.235.120:8090/write_db", label, probability, price, result_image_byts)
 

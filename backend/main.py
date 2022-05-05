@@ -1,5 +1,6 @@
 import datetime
 
+import requests
 import uvicorn
 from fastapi import File
 from fastapi import FastAPI
@@ -37,17 +38,30 @@ def read_root():
 @app.post("/probability")
 def get_probability(file: UploadFile = File(...), db: Session = Depends(get_db)):
 
-    price = inference.pricerecognition(file.file)
+
     label, probability, result = inference.predict(file.file, 0)
+    price = requests.post("127.0.0.1:8000", files = file.file)
     item = {'label': label, "probability": probability, "price": price, "image": result}
     create_new_item(item = item, db=db)
 
-    return {"label": label, "probability": probability, "result": result, "price": price}
+    return {"label": label, "probability": probability, "result": result, "price": price }
 
 
 @app.get("/get_history", response_model = List)
 def read_item(db:Session = Depends(get_db)):
     item = list_item(db=db)
+    return item
+
+@app.post("/get_price", response_model = List)
+def read_item(file: UploadFile = File(...)):
+    price = inference.pricerecognition(file.file)
+    return {"price" : price}
+
+@app.post("/write_db")
+def write_db(label, probability, price, result, db: Session = Depends(get_db)):
+    item = {'label': label, "probability": probability, "price": price, "image": result}
+    create_new_item(item = item, db=db)
+
     return item
 
 

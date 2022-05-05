@@ -90,7 +90,8 @@ def pricerecognition(image):
     cv2.imwrite(image_name, crop_image)
     path = os.path.abspath(image_name)
     print(path)
-    reader = easyocr.Reader(['ru'], gpu=False)
+    #reader = easyocr.Reader(['ru'], gpu=False)
+    reader = easyocr.Reader(['en'], gpu=True)
     price = reader.readtext(path, detail = 0)
 
     return price
@@ -122,7 +123,7 @@ def predict(input_image, label):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    # TODO если модель предсказывает что-то с порогом ниже 0.5 возвращать класс unknow
+    # TODO если модель предсказывает что-то с порогом ниже 0.7 возвращать класс unknow
     if probability < 0.7:
         label = 'unknow'
 

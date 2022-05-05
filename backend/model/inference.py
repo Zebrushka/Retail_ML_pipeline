@@ -30,6 +30,8 @@ model_det = torch.hub.load('ultralytics/yolov5', 'custom', path=path_to_model_de
 model_det.eval()
 model_clf.eval()
 
+reader = easyocr.Reader(['en'], gpu=True)
+
 
 
 def crop(input_image, label):
@@ -82,7 +84,7 @@ def crop(input_image, label):
     return crop_image, detections
 
 
-def pricerecognition(image):
+def pricerecognition(image, reader=reader):
     label = 1
     crop_image, detections = crop(image, label)
 
@@ -91,7 +93,8 @@ def pricerecognition(image):
     path = os.path.abspath(image_name)
     print(path)
     #reader = easyocr.Reader(['ru'], gpu=False)
-    reader = easyocr.Reader(['en'], gpu=True)
+    #TODO вынести загрузку easyocr в начало скрипта должно стать быстрее
+
     price = reader.readtext(path, detail = 0)
 
     return price
@@ -123,7 +126,6 @@ def predict(input_image, label):
         label = labels_map[idx]
         print('{label:<75} ({p:.2f}%)'.format(label=labels_map[idx], p=probability * 100))
 
-    # TODO если модель предсказывает что-то с порогом ниже 0.7 возвращать класс unknow
     if probability < 0.7:
         label = 'unknow'
 

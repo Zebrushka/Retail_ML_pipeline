@@ -36,8 +36,7 @@ def read_root():
 
 
 @app.post("/probability")
-def get_probability(file: UploadFile = File(...), db: Session = Depends(get_db)):
-
+def get_probability(file: UploadFile = File(...)):
 
     label, probability, result = inference.predict(file.file, 0)
 
@@ -52,14 +51,13 @@ def read_item(db:Session = Depends(get_db)):
 @app.post("/get_price")
 def read_item(file: UploadFile = File(...)):
     price = inference.pricerecognition(file.file)
-    return {"price" : price}
+    return {"price" : price[0]}
 
 @app.post("/write_db")
-def write_db(label, probability, price, result, db: Session = Depends(get_db)):
-    item = {'label': label, "probability": probability, "price": price, "image": result}
+def write_db(item, db: Session = Depends(get_db)):
+    # item = {'label': item[0], "probability": item[1], "price": item[2], "image": item[3]}
+    print(item)
     create_new_item(item = item, db=db)
-
-    return item
 
 
 

@@ -40,11 +40,8 @@ def get_probability(file: UploadFile = File(...), db: Session = Depends(get_db))
 
 
     label, probability, result = inference.predict(file.file, 0)
-    price = requests.post("127.0.0.1:8000", files = file.file)
-    item = {'label': label, "probability": probability, "price": price, "image": result}
-    create_new_item(item = item, db=db)
 
-    return {"label": label, "probability": probability, "result": result, "price": price }
+    return {"label": label, "probability": probability, "result": result}
 
 
 @app.get("/get_history", response_model = List)

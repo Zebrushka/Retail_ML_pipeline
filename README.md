@@ -16,5 +16,5 @@ Already implemented and plans:
 - [x] EfficientNet for item classification
 - [x] Backend + frontend
 - [x] For unknown products display the label unknown
-- [ ] OCR
+- [x] OCR
 - [x] Save history to database (sqlite)
